@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>FROZEN DHARMA: THE MYTHIC REAWAKENING</title>
+<style>
+  :root{--bg:#0a0f1e;--bg2:#111a33;--ice:#9fd8ff;--ember:#ff9a3c;--gold:#e8c46a;--txt:#eef2ff;--mut:#a7b3d4}
+  *{box-sizing:border-box}body{margin:0;font-family:Georgia,'Times New Roman',serif;background:radial-gradient(1200px 600px at 70% -10%,#1d2c5c 0%,var(--bg) 55%) fixed,var(--bg);color:var(--txt)}
+  header.hero{padding:72px 24px 48px;text-align:center;background:linear-gradient(180deg,rgba(20,32,70,.65),rgba(10,15,30,0) 70%),repeating-linear-gradient(115deg,rgba(159,216,255,.06) 0 2px,transparent 2px 14px)}
+  .kicker{letter-spacing:.35em;color:var(--ice);font-size:12px;text-transform:uppercase}
+  h1{font-size:clamp(34px,6vw,68px);margin:14px 0 8px;line-height:1.05;text-shadow:0 2px 30px rgba(159,216,255,.25)}
+  h1 .ember{color:var(--ember)}p.sub{color:var(--mut);max-width:760px;margin:0 auto;font-size:18px;line-height:1.6}
+  .cta-row{margin-top:26px;display:flex;gap:12px;justify-content:center;flex-wrap:wrap}
+  .btn{font-family:inherit;border:1px solid var(--gold);background:linear-gradient(180deg,#2a2410,#171204);color:var(--gold);padding:12px 22px;border-radius:10px;cursor:pointer;font-size:16px}
+  .btn.primary{background:linear-gradient(180deg,#ff9a3c,#b34d12);color:#1a0e02;border-color:#ffb066;font-weight:bold}
+  main{max-width:1100px;margin:0 auto;padding:24px}
+  section.card{background:linear-gradient(180deg,rgba(23,34,70,.85),rgba(13,20,42,.9));border:1px solid #2b3c73;border-radius:16px;padding:24px;margin:18px 0;box-shadow:0 10px 40px rgba(0,0,0,.4)}
+  h2{color:var(--ice);letter-spacing:.08em;margin:0 0 10px;font-size:22px}
+  .grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:12px;margin-top:12px}
+  .tile{border:1px solid #33477f;border-radius:12px;padding:14px;background:rgba(10,18,40,.6)}
+  .tile b{color:var(--gold)}.tile span{color:var(--mut);font-size:14px;line-height:1.5;display:block;margin-top:6px}
+  .boss{display:flex;justify-content:space-between;gap:10px;padding:10px 4px;border-bottom:1px dashed #2b3c73;font-size:15px}
+  .boss:last-child{border-bottom:0}.phase{color:var(--ember)}
+  ul.sys{columns:2;margin:8px 0 0;padding-left:20px;color:var(--mut);line-height:1.7}
+  footer{color:var(--mut);text-align:center;padding:28px;font-size:13px}
+  #status{margin-top:14px;color:var(--ice);font-size:14px;min-height:20px}
+  @media(max-width:600px){ul.sys{columns:1}header.hero{padding:48px 16px 32px}}
+</style>
+</head>
+<body>
+<header class="hero">
+  <div class="kicker">Standalone PC &amp; Console Action RPG &bull; Original Mythic IP</div>
+  <h1>FROZEN DHARMA<br><span class="ember">THE MYTHIC REAWAKENING</span></h1>
+  <p class="sub">An ancient force has frozen portions of reality itself. Cross 15 handcrafted regions and 1,000
+  progression levels &mdash; from the Frozen Valley to the Final Mythic Realm &mdash; master six Dharma Resonance
+  powers, and face 50+ cinematic bosses to reforge the balance of Dharma.</p>
+  <div class="cta-row">
+    <button class="primary btn" id="beginBtn" type="button">Begin the Journey</button>
+    <button class="btn" id="resBtn" type="button">Attune Resonance</button>
+  </div>
+  <div id="status" role="status" aria-live="polite">The Seal-Bearer wakes in Thawline Hamlet&hellip;</div>
+</header>
+<main>
+  <section class="card" id="regions">
+    <h2>15 REGIONS &bull; LEVELS 1&ndash;1000</h2>
+    <div class="grid">
+      <div class="tile"><b>1 &middot; Frozen Valley (1&ndash;50)</b><span>Abandoned villages, frozen falls, the Temple of the Still Flame.</span></div>
+      <div class="tile"><b>2 &middot; Sunken Kingdom (51&ndash;100)</b><span>Flooded temples, dive ruins, the Drowned Library.</span></div>
+      <div class="tile"><b>3 &middot; Celestial Forest (101&ndash;200)</b><span>Giant trees, floating isles, illusion gates.</span></div>
+      <div class="tile"><b>4 &middot; Ashen Empire (201&ndash;300)</b><span>Lava rivers, siege forts, under-cities.</span></div>
+      <div class="tile"><b>5 &middot; Desert of Forgotten Gods (301&ndash;380)</b><span>Buried colossi, mirage navigation.</span></div>
+      <div class="tile"><b>6 &middot; City of a Thousand Temples (381&ndash;460)</b><span>Vertical holy metropolis, bell-puzzle network.</span></div>
+      <div class="tile"><b>7 &middot; Underground Kingdom (461&ndash;540)</b><span>Crystal caverns, deep trade cities.</span></div>
+      <div class="tile"><b>8 &middot; Ocean of Eternity (541&ndash;620)</b><span>Open sea, leviathan hunts, storm rites.</span></div>
+      <div class="tile"><b>9 &middot; Floating Celestial Kingdom (621&ndash;700)</b><span>Sky islands, wind palaces, grapple lanes.</span></div>
+      <div class="tile"><b>10 &middot; Realm of Shadows (701&ndash;770)</b><span>Dark mirror, light-and-shadow duality.</span></div>
+      <div class="tile"><b>11 &middot; Giant Mountain Sanctuary (771&ndash;830)</b><span>Monastery peaks, trial ascents.</span></div>
+      <div class="tile"><b>12 &middot; Storm Kingdom (831&ndash;880)</b><span>Eternal tempest citadels, storm riding.</span></div>
+      <div class="tile"><b>13 &middot; Ancient Battlefield (881&ndash;920)</b><span>War-frozen time field, banner breaking.</span></div>
+      <div class="tile"><b>14 &middot; Frozen Heaven (921&ndash;970)</b><span>Celestial ice palace, zero-friction duels.</span></div>
+      <div class="tile"><b>15 &middot; Final Mythic Realm (971&ndash;1000)</b><span>Beyond reality: the Heart of Stillness.</span></div>
+    </div>
+  </section>
+  <section class="card" id="combat">
+    <h2>TIMING COMBAT &bull; DHARMA RESONANCE</h2>
+    <ul class="sys">
+      <li>Light / heavy / charged / aerial chains, executions</li>
+      <li>Dodge i-frames, perfect dodge, parry &amp; riposte</li>
+      <li>Agni (fire) &middot; Vayu (wind) &middot; Varuna (water)</li>
+      <li>Prithvi (earth) &middot; Akasha (cosmos) &middot; Kala (time)</li>
+      <li>Fusion: Firestorm Vortex, Tempest Snare, Volcanic Strike</li>
+      <li>Stamina, poise breaks, weapon mastery, codex weaknesses</li>
+    </ul>
+  </section>
+  <section class="card" id="bosses">
+    <h2>LEGENDARY BOSSES</h2>
+    <div class="boss"><span>Frostbound Guardian &mdash; Frozen Valley</span><span class="phase">3 phases</span></div>
+    <div class="boss"><span>Abyssal Maharaja &mdash; Sunken Kingdom</span><span class="phase">3 phases</span></div>
+    <div class="boss"><span>Forest Deity &mdash; Celestial Forest</span><span class="phase">4 phases</span></div>
+    <div class="boss"><span>Ashen Emperor &mdash; Ashen Empire</span><span class="phase">4 phases</span></div>
+    <div class="boss"><span>Heart of Stillness &mdash; Final Mythic Realm</span><span class="phase">6 phases</span></div>
+  </section>
+  <section class="card" id="prototype">
+    <h2>PLAYABLE PROTOTYPE &bull; FULL DESIGN BIBLE</h2>
+    <p class="sub" style="font-size:15px">This page is the static preview. The repository holds the complete GDD,
+    world bible (15 regions, 54-boss registry, 14 chapters), UE5 production blueprint, and a runnable
+    standalone PC systems prototype (Region&nbsp;1 slice, timing combat, Resonance fusions, phased boss).</p>
+  </section>
+</main>
+<footer>FROZEN DHARMA: THE MYTHIC REAWAKENING &mdash; original fiction. All art, music &amp; text to be newly created.</footer>
+<script>
+(function(){
+  var status=document.getElementById('status');
+  var mantras=['Agni spark ignited.','Vayu winds answer.','Varuna tides rise.','Prithvi stands firm.','Akasha beholds you.','Kala slows its march.'];
+  var i=0;
+  document.getElementById('beginBtn').addEventListener('click',function(){
+    status.textContent='Chapter 1 \u2014 Crossing the Shattered Bridge toward the Temple of the Still Flame.';
+  });
+  document.getElementById('resBtn').addEventListener('click',function(){
+    status.textContent=mantras[i%mantras.length]; i++;
+  });
+})();
+</script>
+</body>
+</html>

@@ -1,0 +1,25 @@
+{
+  "FileVersion": 3,
+  "EngineAssociation": "5.5",
+  "Category": "",
+  "Description": "FROZEN DHARMA: THE MYTHIC REAWAKENING — premium third-person mythic action RPG.",
+  "Modules": [
+    {
+      "Name": "FrozenDharma",
+      "Type": "Runtime",
+      "LoadingPhase": "Default",
+      "AdditionalDependencies": [
+        "GameplayAbilities",
+        "GameplayTags",
+        "GameplayTasks",
+        "AIModule",
+        "Niagara",
+        "Chaos"
+      ]
+    }
+  ],
+  "Plugins": [
+    { "Name": "GameplayAbilities", "Enabled": true },
+    { "Name": "Niagara", "Enabled": true }
+  ]
+}
