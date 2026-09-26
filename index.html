@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<title>FROZEN DHARMA: The Mythic Reawakening</title>
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>☸</text></svg>">
+<link rel="stylesheet" href="styles.css">
+<script type="importmap">
+{ "imports": { "three": "https://unpkg.com/three@0.160.0/build/three.module.js", "three/addons/": "https://unpkg.com/three@0.160.0/examples/jsm/" } }
+</script>
+</head>
+<body>
+<canvas id="game-canvas"></canvas>
+
+<!-- Cinematic bars -->
+<div id="cine-top"></div><div id="cine-bottom"></div>
+<div id="subtitle"></div>
+
+<!-- HUD -->
+<div id="hud" class="hidden">
+  <div id="vitals">
+    <div class="bar-wrap hp"><div id="hp-fill"></div><span id="hp-text"></span></div>
+    <div class="bar-wrap st"><div id="st-fill"></div></div>
+    <div class="bar-wrap xp"><div id="xp-fill"></div></div>
+    <div id="level-badge">LV <span id="level-num">1</span></div>
+  </div>
+  <div id="objective-box"><div id="objective-title">CHAPTER I</div><div id="objective-text">Awaken in the Frozen Valley</div></div>
+  <div id="region-banner"><h1 id="region-name"></h1><p id="region-sub"></p></div>
+  <div id="powers-bar"></div>
+  <div id="weapon-box"><div id="weapon-name">Solar Khadga</div><div id="weapon-hint">1-4 weapons • Q/E powers • R ultimate</div></div>
+  <div id="boss-bar" class="hidden"><div id="boss-name">FROSTBOUND GUARDIAN</div><div class="bar-wrap boss"><div id="boss-fill"></div></div></div>
+  <div id="minimap-wrap"><canvas id="minimap" width="160" height="160"></canvas><div id="clock">☀ 08:00</div></div>
+  <div id="interact-prompt" class="hidden">E — Interact</div>
+  <div id="damage-vignette"></div>
+  <div id="combo-counter" class="hidden"><span id="combo-num">0</span> HITS</div>
+  <div id="buffs"></div>
+</div>
+
+<!-- Damage numbers layer -->
+<div id="floaters"></div>
+
+<!-- Menus -->
+<div id="menu-root">
+  <!-- Title -->
+  <div id="title-screen" class="screen">
+    <div class="title-fx"></div>
+    <h1 class="game-logo">FROZEN <span>DHARMA</span></h1>
+    <p class="tagline">THE MYTHIC REAWAKENING — standalone action-RPG vertical slice</p>
+    <p class="premise">Reality has frozen. The balance of Dharma is broken. Journey through 5 mythic regions, master 6 divine resonances, and face the Guardians.</p>
+    <div class="btn-col">
+      <button id="btn-new" class="mbtn primary">⚔ BEGIN JOURNEY</button>
+      <button id="btn-continue" class="mbtn">CONTINUE (save)</button>
+      <button id="btn-how" class="mbtn">HOW TO PLAY</button>
+    </div>
+    <div class="settings-row">
+      <label>Quality <select id="sel-quality"><option value="low">LOW</option><option value="medium" selected>MEDIUM</option><option value="high">HIGH</option><option value="ultra">ULTRA</option><option value="cinematic">CINEMATIC</option></select></label>
+      <label><input type="checkbox" id="chk-audio" checked> Audio</label>
+      <label><input type="checkbox" id="chk-shake" checked> Camera shake</label>
+    </div>
+    <p class="disclaimer">Original fiction inspired by Indian philosophy. Built with Three.js — playable on PC + touch devices. WASD + mouse. No assets leave your machine.</p>
+    <div id="customize">
+      <h3>PROTAGONIST — VESHA (appearance)</h3>
+      <div class="cust-grid">
+        <label>Skin <input type="color" id="c-skin" value="#c98d64"></label>
+        <label>Cloth <input type="color" id="c-cloth" value="#1e5f8a"></label>
+        <label>Trim <input type="color" id="c-trim" value="#e8a020"></label>
+        <label>Hair <input type="color" id="c-hair" value="#181410"></label>
+        <label>Build <input type="range" id="c-build" min="80" max="125" value="100"></label>
+      </div>
+    </div>
+  </div>
+
+  <!-- How -->
+  <div id="how-screen" class="screen hidden">
+    <h2>HOW TO PLAY</h2>
+    <div class="how-grid">
+      <div><b>Move</b> WASD / left stick • <b>Camera</b> mouse drag / right stick • <b>Sprint</b> Shift • <b>Jump</b> Space</div>
+      <div><b>Light</b> J / ⚔ • <b>Heavy</b> K / 🗡 • <b>Bow</b> L / 🏹 • <b>Dodge</b> double-tap / ⟳ (perfect timing = slow-mo)</div>
+      <div><b>Block</b> hold H / 🛡 (tap at impact = parry) • <b>Powers</b> Q + E cycle, F cast • <b>Ultimate</b> R • <b>Interact</b> E near glow</div>
+      <div><b>Quest</b> follow gold marker ◆ • Talk to NPCs • Cleanse 4 regional seals → Central sanctum opens → Final Guardian.</div>
+      <div>Fusions: Fire+Wind = Fire Vortex • Water+Cosmos = Storm • Earth+Fire = Volcanic Strike. Rain weakens fire, storms empower cosmos.</div>
+    </div>
+    <button id="btn-how-back" class="mbtn primary">BACK</button>
+  </div>
+
+  <!-- Death / Pause / Victory -->
+  <div id="pause-screen" class="screen hidden">
+    <h2>PAUSED — DHARMA WAITS</h2>
+    <div class="btn-col">
+      <button id="btn-resume" class="mbtn primary">RESUME</button>
+      <button id="btn-save" class="mbtn">SAVE</button>
+      <button id="btn-skill" class="mbtn">DHARMA TREE (T)</button>
+      <button id="btn-quit-title" class="mbtn">QUIT TO TITLE</button>
+    </div>
+    <div id="stat-sheet"></div>
+  </div>
+
+  <div id="death-screen" class="screen hidden">
+    <h2 class="red">YOU HAVE FALLEN</h2><p>The frost reclaims you… but Dharma turns the wheel again.</p>
+    <button id="btn-respawn" class="mbtn primary">REAWAKEN AT SHRINE</button>
+  </div>
+
+  <div id="victory-screen" class="screen hidden">
+    <h2 class="gold">DHARMA REAWAKENED</h2>
+    <p id="victory-text"></p>
+    <div class="btn-col"><button id="btn-ngp" class="mbtn primary">ENTER NEW GAME+ (enemies +50%)</button>
+    <button id="btn-free" class="mbtn">KEEP EXPLORING</button></div>
+  </div>
+
+  <!-- Skill tree -->
+  <div id="skill-screen" class="screen hidden">
+    <h2>DHARMA RESONANCE TREE</h2><p>Points: <span id="skill-points">0</span> (level up to earn)</p>
+    <div id="skill-grid"></div>
+    <button id="btn-skill-close" class="mbtn primary">CLOSE [T]</button>
+  </div>
+
+  <!-- Dialogue -->
+  <div id="dialogue" class="hidden">
+    <div id="dlg-name">SAGE</div><div id="dlg-text"></div>
+    <div id="dlg-hint">E / tap — continue</div>
+  </div>
+
+  <!-- Toast -->
+  <div id="toast" class="hidden"></div>
+</div>
+
+<!-- Touch controls -->
+<div id="touch" class="hidden">
+  <div id="stick"><div id="knob"></div></div>
+  <div id="touch-btns">
+    <button data-a="light">⚔</button><button data-a="heavy">🗡</button><button data-a="bow">🏹</button>
+    <button data-a="dodge">⟳</button><button data-a="block">🛡</button><button data-a="cast">✦</button><button data-a="ult">☀</button><button data-a="jump">▲</button><button data-a="interact">E</button>
+  </div>
+</div>
+
+<div id="loading"><div class="spin">☸</div><p id="load-text">Kindling Agni… building the realms…</p></div>
+
+<script type="module" src="game.js"></script>
+</body>
+</html>
